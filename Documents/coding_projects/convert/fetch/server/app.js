@@ -1,12 +1,11 @@
 const express = require('express');
 const multer = require('multer');
 const fs = require('fs');
-const { exec } = require('child_process');
 const path = require('path');
 const cors = require('cors');
+const officeConverter = require('office-converter')();
 
 const app = express();
-// CORS 미들웨어 사용 - 모든 출처에서의 요청 허용
 app.use(cors());
 const upload = multer({ dest: 'uploads/' });
 
@@ -14,14 +13,13 @@ app.post('/upload', upload.array('files'), (req, res) => {
     let promises = req.files.map(file => {
         const pptPath = path.join(__dirname, file.path);
         const pdfPath = pptPath + ".pdf";
-        const scriptPath = path.join(__dirname, './scripts/ppt_to_pdf.py');
 
         return new Promise((resolve, reject) => {
-            exec(`"${scriptPath}" "${pptPath}" "${pdfPath}"`, (err, stdout, stderr) => {
+            officeConverter.generatePdf(pptPath, (err, result) => {
                 if (err) {
-                    console.error(err);
                     reject(err);
                 } else {
+                    fs.renameSync(result, pdfPath); // result 파일을 최종 pdfPath로 이름 변경
                     resolve('/download/' + path.basename(pdfPath));
                 }
             });
