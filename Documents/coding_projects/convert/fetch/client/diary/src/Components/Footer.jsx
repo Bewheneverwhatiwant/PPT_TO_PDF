@@ -40,10 +40,8 @@ export default function Component() {
                         <TextHeader>
                             개발자 정보
                         </TextHeader>
-                        한국외대 독일어통번역학과 이나영 <br />
-                        Github: @bewheneverwhatiwant <br />
-                        한국외대 정보통신공학과 이수혁 <br />
-                        Github: @leestana01
+                        Github | @bewheneverwhatiwant <br />
+                        독일어통번역학과 이나영
                     </TextDescription>
                 </CenterContainer>
             </ColumnContainer>
