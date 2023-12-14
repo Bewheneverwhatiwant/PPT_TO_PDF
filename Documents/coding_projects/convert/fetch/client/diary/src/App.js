@@ -19,7 +19,8 @@ const FileUpload = () => {
       formData.append('files', file);
     });
 
-    axios.post('http://b.convertppt.lnynaver.o-r.kr/upload', formData, {
+    axios.post('http://localhost:3000/upload', formData, {
+      //이 부분의 주소를 http://b.convertppt.lnynaver.o-r.kr/upload 이렇게 실제 backend 컨테이너 도메인으로 수정하면 502 에러 발생
       headers: {
         'Content-Type': 'multipart/form-data'
       }
@@ -81,7 +82,8 @@ const FileUpload = () => {
             <ul>
               {downloadLinks.map(link => (
                 <li key={link}>
-                  <a href={`http://b.convertppt.lnynaver.o-r.kr${link}`} download>다운로드</a>
+                  <a href={`http://localhost:3000${link}`} download>다운로드</a>
+                  {/* 이 부분의 주소를 http://b.convertppt.lnynaver.o-r.kr/upload 이렇게 실제 backend 컨테이너 도메인으로 수정하면 502 에러 발생 */}
                 </li>
               ))}
             </ul>
